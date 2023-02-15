@@ -1,8 +1,10 @@
 <template>
-    <div class="home">
-        <p class="text-primary">HOME</p>
+    <div class="guide">
+        <p class="text-primary">GUIDE</p>
     </div>
 </template>
 
 <style scoped lang="scss">
+
+
 </style>

@@ -9,7 +9,11 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "vue": "^3.2.45"
+    "sass": "^1.58.0",
+    "vite-plugin-vuetify": "^1.0.2",
+    "vue": "^3.2.45",
+    "vue-router": "^4.1.6",
+    "vuetify": "^3.1.5"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.0.0",

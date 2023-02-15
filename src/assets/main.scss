@@ -1,0 +1,30 @@
+$primary-background-color: #23272a;
+$secondary-backgroud-color: #2c2f33;
+$tertiary-backgroud-color: #99aab5;
+
+$primary-accent-color: #7289da;
+$secondary-accent-color: #5DD39E;
+
+$primary-text-color: #ffffff;
+$secondary-text-color: #ffffff8e;
+$tertiary-text-color: #BCE784;
+
+html {
+    overflow: hidden !important;
+}
+
+.v-input__details {
+    display: none !important;
+}
+
+.background-primary {
+    background-color: $primary-background-color;
+}
+
+.accent-primary {
+    color: $primary-accent-color;
+}
+
+.text-primary {
+    color: $primary-text-color;
+}
