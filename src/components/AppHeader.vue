@@ -1,9 +1,20 @@
-<script></script>
+<script>
+
+export default {
+  emits: ['showLogin'],
+
+  methods: {
+    showLoginDialog() {
+      this.$emit('showLogin')
+    },
+  },
+}
+</script>
 
 <template>
   <div class="container">
-    <div class="login-button">Login</div>
-    <div class="register-button">Register</div>
+    <v-btn @click="showLoginDialog">Login</v-btn>
+    <v-btn @click="showRegisterDialog">Register</v-btn>
   </div>
 </template>
 

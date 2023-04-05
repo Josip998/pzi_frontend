@@ -8,10 +8,10 @@
     <router-link to="/guide" active-class="selected-link">
       <div>GUIDE</div>
     </router-link>
-    <router-link to="/sell-3d-models" active-class="selected-link">
+    <router-link :to="{ name: 'sell3D' }" active-class="selected-link">
       <div>SELL 3D</div>
     </router-link>
-    <router-link to="/news" active-class="selected-link">
+    <router-link :to="{ name: 'profile' }" active-class="selected-link">
       <div>PROFILE</div>
     </router-link>
   </div>
@@ -41,6 +41,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     div {
       padding-top: 15px;
     }
