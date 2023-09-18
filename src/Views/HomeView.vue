@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page">
+  <div class="center">
     <div class="search-area">
       <input type="text" placeholder="Search for a model" />
       <button class="search-button">Search</button>
@@ -14,14 +14,13 @@
 </script>
 
 <style lang="scss" scoped>
-.landing-page {
+.center {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90%;
+  height: 100%;
   width: 100%;
-  background: url("images/background-landing-image.jpg") no-repeat center center fixed;
 }
 
 .search-area {
@@ -32,13 +31,14 @@
   width: 40%;
   background-color: $tertiary-background-color;
   border-radius: 4px;
-
-  .search-button {
-    height: 100%;
-    width: 20%;
-    background-color: $secondary-background-color;
-    border-radius: 4px;
-  }
 }
+
+.search-button {
+  height: 100%;
+  width: 20%;
+  background-color: $secondary-background-color;
+  border-radius: 4px;
+}
+
 
 </style>

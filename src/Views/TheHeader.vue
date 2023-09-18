@@ -10,6 +10,7 @@
       </button>
     </div>
     <div class="routes-container">
+      <router-link to="/home">HOME</router-link>
       <router-link to="/3d-models">3D MODELS</router-link>
       <router-link to="/custom-3d-models">CUSTOM 3D MODELS</router-link>
       <router-link to="/sell-3d-models">SELL 3D MODELS</router-link>
@@ -164,3 +165,4 @@
 }
 
 </style>
+
