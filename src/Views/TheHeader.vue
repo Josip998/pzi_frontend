@@ -17,13 +17,15 @@
       <router-link to="/profile">PROFILE</router-link>
     </div>
     <div class="authentication-container">
-      <button class="signup-button">SIGN UP</button>
-      <button class="login-button">LOGIN</button>
+      <router-link to="/login"><button class="login-button">LOGIN</button></router-link>
+      <router-link to="/register"><button class="signup-button">REGISTER</button></router-link>
+      
     </div>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+</script>
 
 <style lang="scss">
 .header-container {
@@ -93,6 +95,7 @@
 }
 
 .authentication-container {
+  gap: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -100,6 +103,7 @@
   width: 10%;
 
   button {
+    padding: 4px;
     height: 60%;
     width: 100%;
     border: none;

@@ -22,7 +22,7 @@
           <button type="submit" class="submit-button">Add Model</button>
         </form>
       </div>
-  
+      
       <div v-else class="login-links">
         <!-- Display a login/registration form for non-logged-in users -->
         <router-link to="/login" class="link">LOGIN</router-link>
@@ -35,7 +35,7 @@
   export default {
     data() {
       return {
-        isLoggedIn: true, // Replace with logic to determine login status
+        isLoggedIn: false, // Replace with logic to determine login status
         modelName: '',
         modelDescription: '',
         modelPrice: '',
@@ -117,7 +117,18 @@
 }
 
 .login-links {
-  margin-top: 20px;
+  margin: auto;
+  margin-top: 100px;
+  display: flex;
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  min-height: 70vh; /* Minimum height to center vertically */
+  background: linear-gradient(to bottom, #101010b6, #ffffff14);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fef8f8;
+  width: 30%;
 }
 
 .link {
