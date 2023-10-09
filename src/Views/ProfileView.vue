@@ -13,19 +13,11 @@
         </div>
         <!-- Seller's Information -->
         <div class="seller-info">
-          <h2 class="username">Username: {{ user.user.username }}</h2>
-          <h3 class="email">Email: {{ user.user.email }}</h3>
-          <h3 class="location">Location: {{ user.user.location }}</h3>
-          <h3>USER ID: {{ user.user.id }}</h3>
+          <h2 class="username">Username: {{ user.username }}</h2>
+          <h3 class="email">Email: {{ user.email }}</h3>
+          <h3 class="location">Location: {{ user.location }}</h3>
+          <h3>USER ID: {{ user.id }}</h3>
         </div>
-
-        
-        <!-- <h2 class="models-title">Models by {{ user.user.username }}:</h2>
-
- 
-        <div class="dummy-models">
-          <ModelCard v-for="model in user.models" :key="model.id" :model="model" />
-        </div> -->
       </div>
       <div v-else class="error-message">
         <h3>You are not logged in.</h3>
@@ -34,12 +26,13 @@
   </div>
 </template>
 
-
 <script>
-import ModelCard from "@/components/ModelCard.vue";
 import axios from "axios";
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual backend URL
+  baseURL: 'http://localhost:8000',
+  headers: {
+    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+  },
 });
 
 export default {
@@ -47,35 +40,28 @@ export default {
     return {
       user: null, // User data will be fetched and stored here
       isLoading: true, // Initial loading state
+      
     };
   },
-  components: {
-    ModelCard,
-  },
+  
   async created() {
-    // Get the username from the route params
-    const username = this.$route.params.username;
-
-    // Fetch user data from the backend based on the username
     try {
-      const response = await axiosInstance.get(`/api/profile/${username}`);
-
-      // Log the API response to inspect its structure
-      console.log("API Response:", response.data);
-
-      // Assuming the API response contains user and models data
-      this.user = response.data;
+      const response = await axiosInstance.get(`/api/user`);
+      this.user = response.data; // Assuming the API response contains user data
       this.isLoading = false; // Data has been loaded
-      // Log the user object after it has been populated
-      console.log("User Object:", this.user);
+          // Check if the user is logged in (assuming you have a way to determine this)
     } catch (error) {
-      // Handle the error (e.g., show an error message)
       console.error("Error fetching user data", error);
       this.isLoading = false; // Loading has completed (with an error)
     }
   },
+  
+  
+  
 };
 </script>
+
+
 
   
 <style scoped>

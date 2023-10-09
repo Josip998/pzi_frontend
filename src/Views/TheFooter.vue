@@ -1,7 +1,7 @@
 <template>
     <footer class="footer-container">
       <div class="footer-content">
-        <p>&copy; 2023 Your Company</p>
+        <p>&copy; 2023 3D WORLD</p>
         <p>Contact: example@email.com</p>
       </div>
     </footer>

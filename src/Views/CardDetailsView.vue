@@ -1,7 +1,7 @@
 <template>
   <div class="card-details">
     <!-- Use the ModelCard component and pass the card details as a prop -->
-    <ModelCard :model="cardDetails" :showAdditionalInfo="true" :sellerEmail="sellerEmail" :location="location" />
+    <ModelCard :model="cardDetails" :showAdditionalInfo="true" :sellerInfo="sellerInfo" />
     <!-- Display other card details if needed -->
   </div>
 </template>
@@ -17,17 +17,19 @@ export default {
   data() {
     return {
       cardDetails: {}, // Initialize an empty object for the card details
-      sellerEmail: "",
-      location: "",
+      sellerInfo: null, // Initialize sellerInfo as null
     };
   },
   async created() {
     // Fetch card details based on the model ID from the route parameter
     const modelId = this.$route.params.id;
     try {
-      const response = await axios.get(`http://localhost:8000/api/resource/${modelId}`);
+      const response = await axios.get(`http://localhost:8000/api/resources/${modelId}`);
       this.cardDetails = response.data; // Update cardDetails with fetched data
-      // You can also fetch sellerEmail and location here if needed
+
+      // Fetch seller information based on the user_id from the cardDetails
+      const sellerResponse = await axios.get(`http://localhost:8000/api/resources/sellers/${this.cardDetails.user_id}`);
+      this.sellerInfo = sellerResponse.data; // Update sellerInfo with fetched seller data
     } catch (error) {
       console.error('Error fetching card details:', error);
     }
@@ -45,3 +47,5 @@ export default {
   height: 65vh;
 }
 </style>
+
+

@@ -8,18 +8,16 @@
         <!-- Display custom orders for the logged-in user -->
         <div class="custom-orders">
           <div class="order">
-          <!-- Loop through custom orders and display them -->
           <div
             v-for="customOrder in customOrders"
             :key="customOrder.id"
             class="custom-order"
           >
-            
             <!-- Display custom order details -->
             <h2>Order Name: {{ customOrder.name }}</h2>
             <p>Description: {{ customOrder.description }}</p>
             <p>Contact Email: {{ customOrder.email }}</p>
-            <img src="customOrder.image" alt="Custom Order Image">
+            <img :src="customOrder.image" alt="Custom Order Image" />
             <!-- Add more custom order details as needed -->
           </div>
         </div>
@@ -84,7 +82,8 @@ import axios from "axios";
 export default {
   data() {
     return {
-      isLoggedIn: true,
+      isLoggedIn: !!localStorage.getItem('token'), // Check if the user is logged in
+      user_id: null, // Initialize user_id as null
       customOrders: [],
       order: {
         name: "",
@@ -95,6 +94,10 @@ export default {
     };
   },
   created() {
+    if (this.isLoggedIn) {
+      // Load the user ID when the user is logged in
+      this.loadUserId();
+    }
     // Fetch custom resource requests from the backend
     axios
       .get("http://localhost:8000/api/custom-resource-requests")
@@ -128,6 +131,7 @@ export default {
         .post("http://localhost:8000/api/custom-resource-request", formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Set the content type for file upload
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -147,9 +151,18 @@ export default {
           console.error("Error submitting custom order:", error);
         });
     },
+    async loadUserId() {
+      try {
+        const response = await axios.get('http://localhost:8000/api/user');
+        this.user_id = response.data.id; // Assuming the user ID is available in the response
+      } catch (error) {
+        console.error('Error fetching user data', error);
+      }
+    },
   },
 };
 </script>
+
 
 <style scoped>
 /* Add CSS styles for your component here */

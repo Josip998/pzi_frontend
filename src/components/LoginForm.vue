@@ -45,26 +45,29 @@ export default {
         const response = await axiosInstance.post("/api/login", this.formData);
 
         // Check the HTTP status code to verify if the login was successful
-        if (response.status === 200) {
-          console.log("Login Successful");
+            if (response.status === 200) {
+      console.log("Login Successful");
 
-          // Store the authentication token in local storage
-          const token = response.data.token;
-          localStorage.setItem("token", token);
-          // After setting the token in localStorage
-          console.log('Token in localStorage:', localStorage.getItem('token')); // Debug statement
+      // Store the authentication token in local storage
+      const token = response.data.token;
+      localStorage.setItem("token", token);
 
+      // Update the isAuthenticated variable
+      this.$root.isAuthenticated = true;
 
-          // Update the isAuthenticated variable
-          this.$root.isAuthenticated = true;
+      // Assuming you have user data in the response, you can access it like response.data.user
+      // You may also want to store user data in a state management store (e.g., Vuex) for use in other components
+      const user = response.data.user;
 
-          // Assuming you have user data in the response, you can access it like response.data.user
-          // You may also want to store user data in a state management store (e.g., Vuex) for use in other components
-          const user = response.data.user;
+      // Use Vue Router's afterEach navigation guard to refresh the page after route change
+      this.$router.afterEach(() => {
+        // Refresh the page after the route is fully navigated
+        window.location.reload();
+      });
 
-          // Redirect to the user's profile page
-          this.$router.push(`/profile/${user.username}`);  // Replace "user.id" with the actual user ID
-        } else {
+      // Redirect to the user's profile page
+      this.$router.push('/profile/user'); // Replace "user.id" with the actual user ID
+    } else {
           // Handle unexpected response status codes
           console.error("Unexpected Response Status:", response.status);
         }

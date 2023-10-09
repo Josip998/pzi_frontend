@@ -14,11 +14,14 @@ const routes = [
 
   { path: '/sell-3d-models', name: 'Sell 3D Models', component: () => import('../Views/Sell3DModelsView.vue') },
 
-  { path: '/profile/:username', name: 'Profile', component: () => import('../Views/ProfileView.vue'), props: true },
+  { path: '/profile/user', name: 'Profile', component: () => import('../Views/ProfileView.vue'), props: true },
 
   { path: '/login', name: 'Login', component: () => import('../components/LoginForm.vue') },
 
   { path: '/register', name: 'Register', component: () => import('../components/RegistrationForm.vue') },
+
+  { path: '/edit-model/:id', name: 'EditModel', component: () => import('../Views/EditModelView.vue'), props: true },
+
   
 ]
 

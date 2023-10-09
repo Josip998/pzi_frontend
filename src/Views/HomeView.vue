@@ -1,8 +1,8 @@
 <template>
   <div class="window">
     <div class="center">
-      <!-- Show the search bar and button if showSearch is true -->
-      <div v-if="showSearch" class="search-area">
+      <!-- Show the search bar and button with animation -->
+      <div v-if="showSearch" class="search-area" :class="{ 'search-visible': showSearch }">
         <input type="text" v-model="searchTerm" placeholder="Search for a model" />
         <button class="search-button" @click="searchModels">Search</button>
       </div>
@@ -54,6 +54,7 @@ const searchModels = async () => {
   flex-wrap: wrap;
 }
 
+/* Add animation styles */
 .search-area {
   display: flex;
   justify-content: center;
@@ -62,6 +63,15 @@ const searchModels = async () => {
   width: 40%;
   background-color: $tertiary-background-color;
   border-radius: 4px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+/* Apply animation when the search bar is visible */
+.search-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .search-button {

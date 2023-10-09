@@ -37,7 +37,7 @@
           </div>
           <div class="form-group">
             <input
-              type="number"
+              type="decimal"
               id="price"
               placeholder="Model Price"
               v-model="order.price"
@@ -71,7 +71,8 @@ import axios from "axios"; // Import Axios
 export default {
   data() {
     return {
-      isLoggedIn: false, // Set this based on user authentication status
+      isLoggedIn: !!localStorage.getItem('token'), // Check if the user is logged in
+      user_id: null, // Initialize user_id as null
       order: {
         name: "",
         description: "",
@@ -110,6 +111,7 @@ export default {
         .post(`http://localhost:8000/api/user/${this.user_id}/resource`, formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Set the content type for file upload
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
           },
         })
         .then((response) => {
@@ -134,7 +136,7 @@ export default {
 </script>
 
 <style scoped>
-/* Add CSS styles for your component here */
+.form-group {margin-bottom: 5px;}
 .custom-3d-models {
   margin: auto;
   margin-top: 100px;
@@ -156,6 +158,10 @@ h1 {
   margin-bottom: 10px;
 }
 
+#price {
+  border: 1px solid white;
+  border-radius: 4px;
+}
 .custom-order-form .form-group {
   margin-bottom: 20px;
 }

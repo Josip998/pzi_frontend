@@ -8,24 +8,24 @@
       <router-link to="/3d-models">3D MODELS</router-link>
       <router-link to="/custom-3d-models">CUSTOM 3D MODELS</router-link>
       <router-link to="/sell-3d-models">SELL 3D MODELS</router-link>
-      <router-link to="/profile/:username">PROFILE</router-link>
+      <router-link to="/profile/user">PROFILE</router-link>
     </div>
     <div class="authentication-container">
-      <!-- Display "Logout" button if the user is authenticated -->
-      <button v-if="isAuthenticated" @click="logoutUser" class="logout-button">
+      <!-- Display "Logout" button if the token is present in localStorage -->
+      <button v-if="isAuthenticated" @click="logoutUser" class="logout-button" style="color: white;">
         LOGOUT
       </button>
 
-      <!-- Display "Login" button if the user is not authenticated -->
-      <router-link v-if="!isAuthenticated" to="/login">
-        <button class="login-button">LOGIN</button>
+      <!-- Display "Login" and "Register" buttons if the token is not present in localStorage -->
+      <div v-else class="buttons">
+      <router-link  to="/login">
+        <button class="login-button" style="color: white;">LOGIN</button>
       </router-link>
-
-      <!-- Display "Register" button if the user is not authenticated -->
-      <router-link v-if="!isAuthenticated" to="/register">
+      <router-link  to="/register">
         <button class="signup-button">REGISTER</button>
       </router-link>
     </div>
+  </div>
   </div>
 </template>
 
@@ -33,23 +33,17 @@
 export default {
   computed: {
     isAuthenticated() {
-      // Access the global isAuthenticated variable
-      return this.$root.isAuthenticated;
+      // Check if a token is present in localStorage
+      return localStorage.getItem('token') !== null;
     },
   },
   methods: {
-    async logoutUser() {
-      try {
-        await axiosInstance.post("/api/logout");
-
-        // Remove the token from local storage
-        localStorage.removeItem("token");
-
-        // Redirect the user to the home page
-        this.$router.push("/");
-      } catch (error) {
-        console.error("Logout Error", error.response.data);
-      }
+    logoutUser() {
+      // Clear the authentication token from localStorage
+      localStorage.removeItem('token');
+      
+      // Refresh the page to log the user out
+      window.location.reload();
     },
   },
 };
@@ -199,5 +193,14 @@ export default {
   .search-area input {
     padding: 0;
   }
+}
+
+.buttons {
+  gap: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 10%;
 }
 </style>
