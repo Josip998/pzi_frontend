@@ -13,9 +13,9 @@
     </div>
     <!-- Display seller's email, location, and profile if provided as props -->
     <div v-if="showAdditionalInfo" class="additional-info">
-      <div><strong>CONTACT SELLER:</strong><h4>{{ model.user_email }}</h4></div>
-      <div><strong>Location:</strong><h4>{{ model.user_location }}</h4></div>
-      <div><strong>All Models by: {{ model.user_id }} </strong></div>
+      <div><strong>CONTACT SELLER:</strong><h4>{{ sellerInfo.email }}</h4></div>
+      <div><strong>Location:</strong><h4>{{ sellerInfo.location }}</h4></div>
+      <div><strong>All Models by this user: <a href="#" @click="fetchUserResources">USER ID: {{ model.user_id }}</a></strong></div>
     </div>
 
     <!-- Conditionally render edit and delete buttons for admins -->
@@ -34,6 +34,7 @@ export default {
   props: {
     model: Object,
     showAdditionalInfo: Boolean,
+    sellerInfo: Object,
   },
   data() {
     return {
@@ -46,6 +47,17 @@ export default {
     this.fetchUserRole();
   },
   methods: {
+    async fetchUserResources() {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/user/${this.model.user_id}/resources`);
+        // Assuming your API response has a 'resources' key containing an array of user's resources
+        const userResources = response.data.resources;
+        // Do something with userResources, like displaying them in a list
+        console.log('User Resources:', userResources);
+      } catch (error) {
+        console.error('Error fetching user resources:', error);
+      }
+    },
     // Fetch the user's role from the backend
     async fetchUserRole() {
       try {
@@ -141,7 +153,7 @@ export default {
     color: #000;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin: 10px;
   
   }
   
