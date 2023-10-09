@@ -1,48 +1,45 @@
 <template>
-    <div class="model-card" @click="selectCard">
-      <router-link :to="`/card/${model.id}`" class="model-card-link">
-        <img :src="model.imageUrl" alt="Model Image" class="model-image"  />
-      </router-link>
-      <div class="model-details">
-        <h3>{{ model.name }}</h3>
-        <p>{{ model.description }}</p>
-        <div class="model-specs">
-          <div><strong>Price:</strong> ${{ model.price }}</div>
-          <div><strong>Size:</strong> {{ model.size }}</div>
-        </div>
+  <div class="model-card" @click="selectCard">
+    <router-link :to="`/card/${model.id}`" class="model-card-link">
+      <img :src="model.image" alt="Model Image" class="model-image" />
+    </router-link>
+    <div class="model-details">
+      <h3>{{ model.name }}</h3>
+      <p>{{ model.description }}</p>
+      <div class="model-specs">
+        <div><strong>Price:</strong> ${{ model.price }}</div>
+        <div><strong>Size:</strong> {{ model.size }}</div>
       </div>
-          <!-- Display seller's email, location and profile if provided as props -->
-          <div v-if="showAdditionalInfo" class="additional-info">
-        <div><strong>CONTACT SELLER:</strong><h4>{{ sellerEmail }}</h4></div>
-        <div><strong>Location:</strong><h4>{{ location }}</h4></div>
-        <div><strong>Visit:<h4><a :href="sellerProfile" target="_blank" class="profile-link">Seller's Profile</a></h4></strong></div>
-      </div>
-  
     </div>
-  </template>
-  
-  <script>
-  export default {
-    props: {
-      model: Object,
-      showAdditionalInfo: Boolean,
-      sellerEmail: String,
-      location: String,
-      sellerProfile: String,
-    },
-    emits: ['card-selected'],
-    setup(props, { emit }) {
-      const selectCard = () => {
-        // Emit the custom event and pass the card data as an argument
-        emit('card-selected', props.model);
-      };
-  
-      return {
-        selectCard,
-      };
-    },
-  };
-  </script>
+    <!-- Display seller's email, location and profile if provided as props -->
+    <div v-if="showAdditionalInfo" class="additional-info">
+      <div><strong>CONTACT SELLER:</strong><h4>{{ model.user_email }}</h4></div>
+      <div><strong>Location:</strong><h4>{{ model.user_location }}</h4></div>
+      <div><strong>All Models by: </strong></div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    model: Object,
+    showAdditionalInfo: Boolean,
+  },
+  emits: ['card-selected'],
+  setup(props, { emit }) {
+    console.log("Image URL:", props.model.image);
+    const selectCard = () => {
+      // Emit the custom event and pass the card data as an argument
+      emit('card-selected', props.model);
+    };
+
+    return {
+      selectCard,
+    };
+  },
+};
+</script>
   
   <style scoped lang="scss">
   .model-card {

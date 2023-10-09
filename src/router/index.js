@@ -14,7 +14,7 @@ const routes = [
 
   { path: '/sell-3d-models', name: 'Sell 3D Models', component: () => import('../Views/Sell3DModelsView.vue') },
 
-  { path: '/profile', name: 'Profile', component: () => import('../Views/ProfileView.vue') },
+  { path: '/profile/:username', name: 'Profile', component: () => import('../Views/ProfileView.vue'), props: true },
 
   { path: '/login', name: 'Login', component: () => import('../components/LoginForm.vue') },
 

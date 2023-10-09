@@ -8,7 +8,12 @@
       </div>
       <div class="form-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="formData.password" required />
+        <input
+          type="password"
+          id="password"
+          v-model="formData.password"
+          required
+        />
       </div>
 
       <button type="submit">Login</button>
@@ -18,36 +23,54 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
+
+const axiosInstance = axios.create({
+  baseURL: "http://localhost:8000", // Replace with your actual backend URL
+});
 
 export default {
   data() {
     return {
       formData: {
-        email: '',
-        password: '',
+        email: "",
+        password: "",
       },
-      errorMessage: '',
+      errorMessage: "",
     };
   },
   methods: {
     async loginUser() {
       try {
-        const response = await axios.post('/auth/login', this.formData);
+        const response = await axiosInstance.post("/api/login", this.formData);
 
         // Check the HTTP status code to verify if the login was successful
         if (response.status === 200) {
-          // Login was successful
-          console.log('Login Successful');
-          // You can redirect the user to another page if needed
-          // this.$router.push('/dashboard');
+          console.log("Login Successful");
+
+          // Store the authentication token in local storage
+          const token = response.data.token;
+          localStorage.setItem("token", token);
+          // After setting the token in localStorage
+          console.log('Token in localStorage:', localStorage.getItem('token')); // Debug statement
+
+
+          // Update the isAuthenticated variable
+          this.$root.isAuthenticated = true;
+
+          // Assuming you have user data in the response, you can access it like response.data.user
+          // You may also want to store user data in a state management store (e.g., Vuex) for use in other components
+          const user = response.data.user;
+
+          // Redirect to the user's profile page
+          this.$router.push(`/profile/${user.username}`);  // Replace "user.id" with the actual user ID
         } else {
           // Handle unexpected response status codes
-          console.error('Unexpected Response Status:', response.status);
+          console.error("Unexpected Response Status:", response.status);
         }
       } catch (error) {
         // Handle login errors
-        console.error('Login Error', error.response.data);
+        console.error("Login Error", error.response.data);
         this.errorMessage = error.response.data.error; // Set the error message
       }
     },
@@ -57,20 +80,20 @@ export default {
 
 <style scoped>
 .login-form {
-  margin-top: 100px;
-  padding: 20px;
-  background: linear-gradient(to bottom, #484747ac, #ffffff94); /* Gradient background */
-  max-width: 400px;
-  align-items: center;
   margin: auto;
-  
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.329);
-  color: black;
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column; /* Stack children vertically */
+  align-items: center; /* Center children horizontally */
+  justify-content: center; /* Center children vertically */
+  min-height: 70vh; /* Minimum height to center vertically */
+  background: linear-gradient(to bottom, #101010b6, #ffffff14);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  color: #fef8f8;
+  width: 30%;
 }
-
-
 
 .login-form h2 {
   text-align: center;
@@ -97,7 +120,7 @@ input[type="password"] {
 button[type="submit"] {
   width: 100%;
   padding: 10px;
-  background-color: #007BFF;
+  background-color: #007bff;
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -115,7 +138,3 @@ button[type="submit"]:hover {
   margin-top: 10px;
 }
 </style>
-
-
-
-

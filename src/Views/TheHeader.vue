@@ -3,28 +3,56 @@
     <div class="logo container">
       <i class="logo-image"></i>
     </div>
-    <div class="search-area">
-      <input type="text" placeholder="Search for a model" />
-      <button class="search-button">
-        <i class="search-icon"></i>
-      </button>
-    </div>
     <div class="routes-container">
       <router-link to="/home">HOME</router-link>
       <router-link to="/3d-models">3D MODELS</router-link>
       <router-link to="/custom-3d-models">CUSTOM 3D MODELS</router-link>
       <router-link to="/sell-3d-models">SELL 3D MODELS</router-link>
-      <router-link to="/profile">PROFILE</router-link>
+      <router-link to="/profile/:username">PROFILE</router-link>
     </div>
     <div class="authentication-container">
-      <router-link to="/login"><button class="login-button">LOGIN</button></router-link>
-      <router-link to="/register"><button class="signup-button">REGISTER</button></router-link>
-      
+      <!-- Display "Logout" button if the user is authenticated -->
+      <button v-if="isAuthenticated" @click="logoutUser" class="logout-button">
+        LOGOUT
+      </button>
+
+      <!-- Display "Login" button if the user is not authenticated -->
+      <router-link v-if="!isAuthenticated" to="/login">
+        <button class="login-button">LOGIN</button>
+      </router-link>
+
+      <!-- Display "Register" button if the user is not authenticated -->
+      <router-link v-if="!isAuthenticated" to="/register">
+        <button class="signup-button">REGISTER</button>
+      </router-link>
     </div>
   </div>
 </template>
 
-<script setup>
+<script>
+export default {
+  computed: {
+    isAuthenticated() {
+      // Access the global isAuthenticated variable
+      return this.$root.isAuthenticated;
+    },
+  },
+  methods: {
+    async logoutUser() {
+      try {
+        await axiosInstance.post("/api/logout");
+
+        // Remove the token from local storage
+        localStorage.removeItem("token");
+
+        // Redirect the user to the home page
+        this.$router.push("/");
+      } catch (error) {
+        console.error("Logout Error", error.response.data);
+      }
+    },
+  },
+};
 </script>
 
 <style lang="scss">
@@ -61,7 +89,7 @@
   width: 30%;
   background-color: $secondary-background-color;
   border-radius: 4px;
-  padding: 0  0 0 10px;
+  padding: 0 0 0 10px;
   margin: 0 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
@@ -130,8 +158,13 @@
     color: $secondary-text-color;
     margin-right: 8px;
   }
-}
 
+  .logout-button {
+    background-color: $secondary-accent-color;
+    color: $secondary-text-color;
+    margin-right: 8px;
+  }
+}
 
 @media (max-width: 768px) {
   .header-container {
@@ -167,6 +200,4 @@
     padding: 0;
   }
 }
-
 </style>
-
