@@ -100,7 +100,7 @@ export default {
     }
     // Fetch custom resource requests from the backend
     axios
-      .get("http://localhost:8000/api/custom-resource-requests")
+      .get("http://pzi042023.studenti.sum.ba/backend/api/custom-resource-requests")
       .then((response) => {
         this.customOrders = response.data.customResourceRequests;
       })
@@ -128,7 +128,7 @@ export default {
 
       // Make an Axios POST request to your Laravel backend
       axios
-        .post("http://localhost:8000/api/custom-resource-request", formData, {
+        .post("http://pzi042023.studenti.sum.ba/backend/api/custom-resource-request", formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Set the content type for file upload
             'Authorization': 'Bearer ' + localStorage.getItem('token'),
@@ -153,7 +153,7 @@ export default {
     },
     async loadUserId() {
       try {
-        const response = await axios.get('http://localhost:8000/api/user');
+        const response = await axios.get('http://pzi042023.studenti.sum.ba/backend/api/user');
         this.user_id = response.data.id; // Assuming the user ID is available in the response
       } catch (error) {
         console.error('Error fetching user data', error);

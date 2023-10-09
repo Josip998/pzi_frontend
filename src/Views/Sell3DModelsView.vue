@@ -108,7 +108,7 @@ export default {
 
       // Make an Axios POST request to your Laravel backend
       axios
-        .post(`http://localhost:8000/api/user/${this.user_id}/resource`, formData, {
+        .post(`http://pzi042023.studenti.sum.ba/backend/api/user/${this.user_id}/resource`, formData, {
           headers: {
             "Content-Type": "multipart/form-data", // Set the content type for file upload
             'Authorization': 'Bearer ' + localStorage.getItem('token'),

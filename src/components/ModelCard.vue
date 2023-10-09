@@ -49,7 +49,7 @@ export default {
   methods: {
     async fetchUserResources() {
       try {
-        const response = await axios.get(`http://localhost:8000/api/user/${this.model.user_id}/resources`);
+        const response = await axios.get(`http://pzi042023.studenti.sum.ba/backend/api/user/${this.model.user_id}/resources`);
         // Assuming your API response has a 'resources' key containing an array of user's resources
         const userResources = response.data.resources;
         // Do something with userResources, like displaying them in a list
@@ -66,7 +66,7 @@ export default {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         };
-        const response = await axios.get('http://localhost:8000/api/user/role', config); // Replace with your API endpoint
+        const response = await axios.get('http://pzi042023.studenti.sum.ba/backend/api/user/role', config); // Replace with your API endpoint
         this.userRole = response.data.role;
         console.log('User Role:', this.userRole); // Log the user's role
         this.isAdmin = this.userRole === 'admin'; // Check if the user is an admin
@@ -90,7 +90,7 @@ export default {
       };
 
       axios
-        .delete(`http://localhost:8000/api/resources/${this.model.id}`, config)
+        .delete(`http://pzi042023.studenti.sum.ba/backend/api/resources/${this.model.id}`, config)
         .then((response) => {
           console.log('Model deleted successfully:', response.data);
           // Reload the current page to reflect changes

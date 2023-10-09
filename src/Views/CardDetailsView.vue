@@ -23,11 +23,11 @@ export default {
     const modelId = this.$route.params.id;
     try {
       // Fetch card details
-      const response = await axios.get(`http://localhost:8000/api/resources/${modelId}`);
+      const response = await axios.get(`http://pzi042023.studenti.sum.ba/backend/api/resources/${modelId}`);
       this.cardDetails = response.data;
 
       // Fetch seller information
-      const sellerResponse = await axios.get(`http://localhost:8000/api/resources/sellers/${this.cardDetails.user_id}`);
+      const sellerResponse = await axios.get(`http://pzi042023.studenti.sum.ba/backend/api/resources/sellers/${this.cardDetails.user_id}`);
       this.sellerInfo = sellerResponse.data;
     } catch (error) {
       console.error('Error fetching card details:', error);

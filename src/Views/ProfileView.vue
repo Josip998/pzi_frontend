@@ -29,7 +29,7 @@
 <script>
 import axios from "axios";
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000',
+  baseURL: 'http://pzi042023.studenti.sum.ba/backend',
   headers: {
     'Authorization': 'Bearer ' + localStorage.getItem('token'),
   },

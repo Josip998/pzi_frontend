@@ -19,7 +19,7 @@ const fetchedModels = ref([]);
 // Fetch data when the component is mounted
 onMounted(async () => {
   try {
-    const response = await axios.get("http://localhost:8000/api/resource");
+    const response = await axios.get("http://pzi042023.studenti.sum.ba/backend/api/resource");
     // Assign the fetched data to the ref
     fetchedModels.value = response.data.resources;
     console.log("Fetched Data:", fetchedModels.value);

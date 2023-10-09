@@ -42,7 +42,7 @@
       fetchModelData() {
         // Make an Axios GET request to fetch the current model data
         axios
-          .get(`http://localhost:8000/api/resources/${this.$route.params.id}`)
+          .get(`http://pzi042023.studenti.sum.ba/backend/api/resources/${this.$route.params.id}`)
           .then((response) => {
             this.editedModel = response.data;
           })
@@ -54,7 +54,7 @@
       updateModel() {
         // Make an Axios PUT request to update the model data
         axios
-          .put(`http://localhost:8000/api/resources/${this.$route.params.id}`, this.editedModel)
+          .put(`http://pzi042023.studenti.sum.ba/backend/api/resources/${this.$route.params.id}`, this.editedModel)
           .then((response) => {
             console.log('Model updated successfully:', response.data);
             // Redirect to the model detail view after successful update

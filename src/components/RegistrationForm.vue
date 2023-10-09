@@ -30,7 +30,7 @@
 import axios from 'axios';
 
 const axiosInstance = axios.create({
-  baseURL: 'http://localhost:8000', // Replace with your actual backend URL
+  baseURL: 'http://pzi042023.studenti.sum.ba/backend', // Replace with your actual backend URL
 });
 
 export default {

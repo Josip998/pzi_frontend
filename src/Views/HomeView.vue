@@ -26,7 +26,7 @@ const showSearch = ref(true); // Initially show the search bar and button
 
 const searchModels = async () => {
   try {
-    const response = await axios.get(`http://localhost:8000/api/search?query=${searchTerm.value}`);
+    const response = await axios.get(`http://pzi042023.studenti.sum.ba/backend/api/search?query=${searchTerm.value}`);
     
     // Check if the response contains 'results' property
     if (response.data.hasOwnProperty('results')) {
